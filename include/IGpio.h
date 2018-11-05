@@ -1,5 +1,5 @@
-#ifndef CAT_FEEDER_IGPIO_H
-#define CAT_FEEDER_IGPIO_H
+#ifndef IGPIO_H
+#define IGPIO_H
 
 #include <cstdint>
 
@@ -38,4 +38,4 @@ public:
   virtual void            togglePin(GPIO_Pin pin) = 0;
 };
 
-#endif //CAT_FEEDER_IGPIO_H
+#endif //IGPIO_H

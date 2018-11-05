@@ -1,4 +1,4 @@
-project(encoder_firmware C CXX)
+project(encoder_firmware_test C CXX)
 cmake_minimum_required(VERSION 3.5.0)
 
 # Enable ExternalProject CMake module

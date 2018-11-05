@@ -1,6 +1,6 @@
 message(STATUS "CMAKE_TOOLCHAIN_FILE='${CMAKE_TOOLCHAIN_FILE}'")
 
-project(simple_blink CXX C ASM)
+project(encoder_firmware CXX C ASM)
 cmake_minimum_required(VERSION 3.5.0)
 set(CMAKE_CXX_STANDARD 14)
 
