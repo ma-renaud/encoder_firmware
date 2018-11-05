@@ -1,10 +1,10 @@
 #ifndef INCLUDE_PROCESSORSTATE_H_
 #define INCLUDE_PROCESSORSTATE_H_
 
-class ProcessorState
+class ParserState
 {
 	public :
-		virtual ~ProcessorState(){};
+		virtual ~ParserState(){};
 		virtual void receiveChar(char received) = 0;
 };
 

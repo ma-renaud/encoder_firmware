@@ -2,7 +2,7 @@
 #define INCLUDE_SIMPLEPROTOCOLPARSER_H_
 
 #include <memory>
-#include "processorState.h"
+#include "parserState.h"
 
 class SimpleProtocolParser
 {
@@ -11,15 +11,15 @@ class SimpleProtocolParser
 		virtual ~SimpleProtocolParser(){}
 
 		void receiveChar(char received);
-		void setState(std::shared_ptr<ProcessorState> state);
+		void setState(std::shared_ptr<ParserState> state);
 
-		virtual void waitForCommand() = 0;
-		virtual void saveCommand() = 0;
-		virtual void saveData() = 0;
-		virtual void executeCommand() = 0;
+		virtual void receptionStart() = 0;
+  		virtual void receiveData(char received) = 0;
+		virtual void appendReceivedData() = 0;
+		virtual void receptionCompleted() = 0;
 
 	private:
-		std::shared_ptr<ProcessorState> pState;
+		std::shared_ptr<ParserState> pState;
 };
 
 

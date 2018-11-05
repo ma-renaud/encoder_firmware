@@ -22,7 +22,7 @@ class GPIOExposed : public F4GpioMemory{
 class GpioMemoryGroup : public Test
 {
    public:
-      static constexpr unsigned int GPIOREGISTERSSIZE = 44;
+      static constexpr unsigned int GPIOREGISTERSSIZE = 40;
       std::array<uint32_t, GPIOREGISTERSSIZE> gpioRegisters;
       GPIOExposed* gpio = reinterpret_cast<GPIOExposed*>(gpioRegisters.data());
 

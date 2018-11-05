@@ -1,9 +1,9 @@
 #include <simpleProtocolParser.h>
-#include "waitForCommandStart.h"
+#include "serialParserStates.h"
 
 SimpleProtocolParser::SimpleProtocolParser()
 {
-	pState = std::make_shared<WaitForCommandStart>(this);
+	pState = std::make_shared<WaitForStart>(this);
 }
 
 void SimpleProtocolParser::receiveChar(char received)
@@ -11,7 +11,7 @@ void SimpleProtocolParser::receiveChar(char received)
 	pState->receiveChar(received);
 }
 
-void SimpleProtocolParser::setState(std::shared_ptr<ProcessorState> state)
+void SimpleProtocolParser::setState(std::shared_ptr<ParserState> state)
 {
 	pState = state;
 }
