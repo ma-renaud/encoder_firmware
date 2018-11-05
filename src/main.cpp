@@ -34,7 +34,8 @@
 #include "stm32f4xx_hal.h"
 #include <cstdlib>
 #include "diag/Trace.h"
-#include "f4GpioMemory.h"
+#include <memory>
+#include "f4Gpio.h"
 
 TIM_HandleTypeDef htim4;
 //UART_HandleTypeDef huart2;
@@ -42,12 +43,12 @@ TIM_HandleTypeDef htim4;
 //char readBuf[1];
 //__IO ITStatus UartReady = SET;
 volatile bool patch = true;
-F4GpioMemory* gpio_a = reinterpret_cast<F4GpioMemory*>(GPIOA);
+std::unique_ptr<IGpio> gpio_a = std::make_unique<F4Gpio>(reinterpret_cast<uintptr_t>(GPIOA));
 
-void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
+void SystemClock_Config();
+static void MX_GPIO_Init();
 
-int main(void) {
+int main() {
   /* MCU Configuration----------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
@@ -74,7 +75,7 @@ int main(void) {
   HAL_NVIC_EnableIRQ(TIM4_IRQn);
 
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-  gpio_a->write(GPIO_Pin::PIN_4, GPIO_PinState_::GPIO_PIN_RESET);
+  gpio_a->writePin(GPIO_Pin::PIN_4, GPIO_PinState_::GPIO_PIN_RESET);
 
   while (patch) {
     HAL_Delay(1000);
@@ -84,12 +85,12 @@ int main(void) {
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   (void) htim;
   HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-  gpio_a->toggle(GPIO_Pin::PIN_4);
+  gpio_a->togglePin(GPIO_Pin::PIN_4);
 }
 
 /** System Clock Configuration
 */
-void SystemClock_Config(void) {
+void SystemClock_Config() {
 
   RCC_OscInitTypeDef RCC_OscInitStruct;
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
@@ -133,7 +134,7 @@ void SystemClock_Config(void) {
      PA2   ------> USART2_TX
      PA3   ------> USART2_RX
 */
-void MX_GPIO_Init(void) {
+void MX_GPIO_Init() {
 
   GPIO_InitTypeDef GPIO_InitStruct;
 
