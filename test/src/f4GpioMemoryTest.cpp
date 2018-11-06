@@ -81,3 +81,13 @@ TEST_F(GpioMemoryGroup, TestRead)
 
   ASSERT_THAT(gpio->readPin(selectedPin), Eq(GPIO_PinState_::SET));
 }
+
+TEST_F(GpioMemoryGroup, TestInitDigitalOut)
+{
+  GPIO_Pin selectedPin = GPIO_Pin::PIN_5;
+  gpio->init(selectedPin, GPIO_Mode::DIGITAL_OUT);
+
+  ASSERT_THAT(gpioRegisters[1], Eq(0));
+  ASSERT_THAT(gpioRegisters[2], Eq(0));
+  ASSERT_THAT(gpioRegisters[3], Eq(0));
+}

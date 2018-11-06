@@ -37,6 +37,20 @@ enum class GPIO_OUTPUT_TYPE : uint8_t {
   OPENDRAIN
 };
 
+enum class GPIO_OUTPUT_SPEED : uint8_t {
+  LOWSPEED = 0,
+  MEDIUMSPEED,
+  FASTSPEED,
+  HIGHSPEED
+};
+
+enum class GPIO_PUPD : uint8_t {
+  NOPULL = 0,
+  PULLUP,
+  PULLDOWN,
+  RESERVED
+};
+
 class IGpio {
  public:
   virtual GPIO_PinState_ readPin(GPIO_Pin pin) = 0;
