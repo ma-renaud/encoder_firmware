@@ -75,7 +75,7 @@ int main() {
   HAL_NVIC_EnableIRQ(TIM4_IRQn);
 
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-  gpio_a->writePin(GPIO_Pin::PIN_4, GPIO_PinState_::GPIO_PIN_RESET);
+  gpio_a->writePin(GPIO_Pin::PIN_4, GPIO_PinState_::RESET);
 
   while (patch) {
     HAL_Delay(1000);

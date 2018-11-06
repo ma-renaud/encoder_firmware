@@ -14,6 +14,7 @@ class F4Gpio : public IGpio {
   GPIO_PinState_ readPin(GPIO_Pin pin) override { return gpio_memory->readPin(pin); }
   void writePin(GPIO_Pin pin, GPIO_PinState_ PinState) override { gpio_memory->write(pin, PinState); }
   void togglePin(GPIO_Pin pin) override { gpio_memory->toggle(pin); }
+  void init(GPIO_Pin pin, GPIO_Mode mode) override {gpio_memory->init(pin, mode);}
 
  private:
   F4GpioMemory *gpio_memory;

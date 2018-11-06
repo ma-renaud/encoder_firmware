@@ -7,14 +7,15 @@
 typedef uint32_t volatile device_register;
 
 class F4GpioMemory {
-public:
+ public:
   F4GpioMemory() = default;
   ~F4GpioMemory() = default;
   GPIO_PinState_ readPin(GPIO_Pin pin);
   void write(GPIO_Pin pin, GPIO_PinState_ PinState);
   void toggle(GPIO_Pin pin);
+  void init(GPIO_Pin pin, GPIO_Mode mode);
 
-protected:
+ protected:
   device_register MODER;
   device_register OTYPER;
   device_register OSPEEDR;
@@ -24,6 +25,10 @@ protected:
   device_register BSRR;
   device_register LCKR;
   device_register AFR[2];
+
+ private:
+  static constexpr uint8_t NB_PINS = 16;
+  void setOutputType(uint8_t position, GPIO_OUTPUT_TYPE type);
 };
 
 #endif //F0GPIOMEMORY_H
