@@ -28,9 +28,10 @@ class F4GpioMemory {
 
  private:
   static constexpr uint8_t NB_PINS = 16;
-  void setOutputType(uint8_t position, GPIO_OUTPUT_TYPE type);
-  void setOutputSpeed(uint8_t position, GPIO_OUTPUT_SPEED speed);
-  void setPull(uint8_t position, GPIO_PUPD pupd);
+  void setMode(uint8_t position, GPIO_Direction_Mode mode);
+  void setOutputType(uint8_t position, GPIO_Output_Type type);
+  void setOutputSpeed(uint8_t position, GPIO_Output_Speed speed);
+  void setPull(uint8_t position, GPIO_Pupd pupd);
 };
 
 #endif //F0GPIOMEMORY_H

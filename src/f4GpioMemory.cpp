@@ -28,27 +28,38 @@ void F4GpioMemory::init(GPIO_Pin pin, GPIO_Mode mode) {
   }
 
   if (mode == GPIO_Mode::DIGITAL_OUT) {
-    setOutputType(position, GPIO_OUTPUT_TYPE::PUSHPULL);
-    setOutputSpeed(position, GPIO_OUTPUT_SPEED::LOWSPEED);
-    setPull(position, GPIO_PUPD::NOPULL);
+    setMode(position, GPIO_Direction_Mode::OUTPUT);
+    setOutputType(position, GPIO_Output_Type::PUSH_PULL);
+    setOutputSpeed(position, GPIO_Output_Speed::LOW_SPEED);
+    setPull(position, GPIO_Pupd::NOPULL);
+  } else if (mode == GPIO_Mode::DIGITAL_IN) {
+    setMode(position, GPIO_Direction_Mode::INPUT);
+    setPull(position, GPIO_Pupd::PULLDOWN);
   }
 }
 
-void F4GpioMemory::setOutputType(uint8_t position, GPIO_OUTPUT_TYPE type) {
+void F4GpioMemory::setMode(uint8_t position, GPIO_Direction_Mode mode) {
+  uint32_t temp = MODER;
+  temp &= ~(static_cast<uint32_t>(0x03) << (position * 2));
+  temp |= (static_cast<uint8_t>(mode) << (position * 2));
+  MODER = temp;
+}
+
+void F4GpioMemory::setOutputType(uint8_t position, GPIO_Output_Type type) {
   uint32_t temp = OTYPER;
   temp &= ~(static_cast<uint32_t>(0x01) << position);
   temp |= static_cast<uint8_t>(type) << position;
   OTYPER = temp;
 }
 
-void F4GpioMemory::setOutputSpeed(uint8_t position, GPIO_OUTPUT_SPEED speed) {
+void F4GpioMemory::setOutputSpeed(uint8_t position, GPIO_Output_Speed speed) {
   uint32_t temp = OSPEEDR;
   temp &= ~(static_cast<uint32_t>(0x03) << (position * 2));
   temp |= (static_cast<uint8_t>(speed) << (position * 2));
   OSPEEDR = temp;
 }
 
-void F4GpioMemory::setPull(uint8_t position, GPIO_PUPD pupd) {
+void F4GpioMemory::setPull(uint8_t position, GPIO_Pupd pupd) {
   uint32_t temp = PUPDR;
   temp &= ~(static_cast<uint32_t>(0x03) << (position * 2));
   temp |= (static_cast<uint8_t>(pupd) << (position * 2));

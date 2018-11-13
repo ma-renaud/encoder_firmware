@@ -29,22 +29,30 @@ enum class GPIO_PinState_ : uint8_t {
 };
 
 enum class GPIO_Mode : uint8_t {
-  DIGITAL_OUT = 0
+  DIGITAL_OUT = 0,
+  DIGITAL_IN
 };
 
-enum class GPIO_OUTPUT_TYPE : uint8_t {
-  PUSHPULL = 0,
-  OPENDRAIN
+enum class GPIO_Direction_Mode : uint8_t {
+  INPUT = 0,
+  OUTPUT,
+  ALTERNATE_FUNCTION,
+  ANALOG
 };
 
-enum class GPIO_OUTPUT_SPEED : uint8_t {
-  LOWSPEED = 0,
-  MEDIUMSPEED,
-  FASTSPEED,
-  HIGHSPEED
+enum class GPIO_Output_Type : uint8_t {
+  PUSH_PULL = 0,
+  OPEN_DRAIN
 };
 
-enum class GPIO_PUPD : uint8_t {
+enum class GPIO_Output_Speed : uint8_t {
+  LOW_SPEED = 0,
+  MEDIUM_SPEED,
+  FAST_SPEED,
+  HIGH_SPEED
+};
+
+enum class GPIO_Pupd : uint8_t {
   NOPULL = 0,
   PULLUP,
   PULLDOWN,
