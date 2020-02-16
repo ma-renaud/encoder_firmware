@@ -1,6 +1,3 @@
-/Debug/
-/Release/
-/TestWin/
-/test-debug/
+/build/
 /.idea/*
 /test/.idea/*

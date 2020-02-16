@@ -42,7 +42,6 @@ TIM_HandleTypeDef htim4;
 //SPI_HandleTypeDef hspi2;
 //char readBuf[1];
 //__IO ITStatus UartReady = SET;
-volatile bool patch = true;
 std::unique_ptr<IGpio> gpio_a = std::make_unique<F4Gpio>(reinterpret_cast<uintptr_t>(GPIOA));
 
 void SystemClock_Config();
@@ -77,9 +76,12 @@ int main() {
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
   gpio_a->writePin(GPIO_Pin::PIN_4, GPIO_PinState_::RESET);
 
-  while (patch) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wmissing-noreturn"
+  while (true)
     HAL_Delay(1000);
-  }
+#pragma clang diagnostic pop
+  
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
